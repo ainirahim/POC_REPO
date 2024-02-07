@@ -5,8 +5,9 @@ pipeline {
           steps {
             echo 'Continue from previous phase: Ready to deploy next environment.'
           }
-          
-          
+
+}
+
           
           }
           stage('Completed updating Operation') {
