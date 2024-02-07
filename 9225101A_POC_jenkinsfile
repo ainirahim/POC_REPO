@@ -1,37 +1,50 @@
-pipeline {
+Pipeline {
     agent any 
     stages {
         stage('ST1 9225101A') {
             steps {
-                echo "ST1 9225101A: Environment is prepared. Start to rollout to TEST server"'
+                sh 'echo "ST1 9225101A: Environment is prepared. Start to rollout to TEST server"'
             }
         }
 
         stage('S2 9225101A') {
             steps {
+                rm -f BKUP-TEST-image
+                docker commit TESTsvr9225101A BKUP-TEST-image
                 echo "ST2 9225101A: TEST server is backup and updated"
             }
         }
 
         stage('S3 9225101A') {
             steps{
-                   
-                        echo "ST3 9225101A: Test result for TEST server is generated: TEST-result-file"
-                      
+                script{
+    
+                    }
                 }
             }
             
 
         stage('ST4 9225101A') {
             steps {
-                input('Proceed Production or RollBack Test?)
+              
+                 
+            
+            }
         }
     }
 
 
         stage('ST5 9225101A){
             steps{
-              echo "ST3 9225101A: Rollback Test server"
+                sh '''#!/bin/bash
+                 targets=prodsvr9225101A;
+                 locate_script='/tmp/clone/POC_REPO/script_to_run';
+                 bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
+                 '''
+                 echo "Production container updated"
+                
+                    }
+                }
             }
 
         }
@@ -39,7 +52,10 @@ pipeline {
 
         stage('ST6 9225101A') {
            steps {
-               echo "ST3 9225101A: Rollback Test server"
+                
+                        echo "ST6 9225101A:Production server is updated."
+                    
+                
             }
         }
     }
