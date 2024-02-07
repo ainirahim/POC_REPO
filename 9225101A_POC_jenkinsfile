@@ -1,19 +1,48 @@
 pipeline {
-      agent any
-      stages {
-          stage('One') {
-          steps {
-            echo 'Continue from previous phase: Ready to deploy next environment.'
-          }
+    agent any 
+    stages {
+        stage('ST1 9225101A') {
+            steps {
+                echo "ST1 9225101A: Environment is prepared. Start to rollout to TEST server"'
+            }
+        }
 
-}
-          stage('Completed updating Operation') {
-          steps {
-            echo 'Completed updating to Production Container'
-          }
-          }
-      }
+        stage('S2 9225101A') {
+            steps {
+                echo "ST2 9225101A: TEST server is backup and updated"
+            }
+        }
 
+        stage('S3 9225101A') {
+            steps{
+                   
+                        echo "ST3 9225101A: Test result for TEST server is generated: TEST-result-file"
+                      
+                }
+            }
+            
+
+        stage('ST4 9225101A') {
+            steps {
+                input('Proceed Production or RollBack Test?)
+        }
+    }
+
+
+        stage('ST5 9225101A){
+            steps{
+              echo "ST3 9225101A: Rollback Test server"
+            }
+
+        }
+
+
+        stage('ST6 9225101A') {
+           steps {
+               echo "ST3 9225101A: Rollback Test server"
+            }
+        }
+    }
 }
 
 
