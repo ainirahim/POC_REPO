@@ -17,9 +17,8 @@ Pipeline {
 
         stage('S3 9225101A') {
             steps{
-                script{
-    
-                    }
+            Execute curl –Is http://TESTsvr9225101A.localdomain|head –n 1  > /tmp/TEST-result-file
+
                 }
             }
             
